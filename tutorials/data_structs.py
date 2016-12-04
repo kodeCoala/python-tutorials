@@ -1,5 +1,10 @@
 #! /usr/bin/env python
 from queue import Queue
+import logging
+
+# Create logger
+logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(levelname)s | %(message)s')
+log = logging.getLogger()
 
 # dictionary
 dictionary = {
@@ -68,6 +73,42 @@ if __name__ == '__main__':
     print q
     q.pop()
     print q
+
+    # Try except example
+    # THis is really BAAD practice
+    log.warning("I am parsing string as an int. This could be bad")
+    try:
+       int("asagsdgd")
+    except Exception as err:
+        log.error("something happend and it was bad: {}".format(err))
+
+    log.warning("Trying this again with specific exception")
+    try:
+       int("asagsdgd")
+       print dictionary['kiran']
+    except KeyError:
+        log.error("We had a key error")
+    except ValueError:
+        log.error("We had a int parsing error")
+
+    # Example of key error and nested exception catching
+    try:
+       print dictionary['kiran']
+    except KeyError:
+        log.error("We had a key error")
+    except ValueError:
+        log.error("We had a int parsing error")
+
+    # Example to print an actual error
+    try:
+       print dictionary['kiran']
+    except KeyError as err:
+        log.error("We had a key error: {}".format(err))
+    except ValueError as err:
+        log.error("We had a int parsing error: {}".format(err))
+
+    # When do you use exceptions
+    # case 1: External apis are not reliable
 
 
 ## Exercise
